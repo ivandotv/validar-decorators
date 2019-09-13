@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "tsBuildInfoFile": "./.buildcache/lib.tsbuildinfo",
+    "declaration": true,
+    "target": "es5",
+    "module": "commonjs",
+    "sourceMap": true,
+    "outDir": "./lib",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": ["./src/**/*"]
+}
