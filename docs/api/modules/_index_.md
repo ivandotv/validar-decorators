@@ -17,7 +17,7 @@
 
 ▸ **isValid**(`validation`: Validation | Validation[] | any): *Function*
 
-*Defined in [index.ts:5](https://github.com/ivandotv/validar-decorators/blob/83cb7da/src/index.ts#L5)*
+*Defined in [index.ts:5](https://github.com/ivandotv/validar-decorators/blob/9870e72/src/index.ts#L5)*
 
 **Parameters:**
 
@@ -33,7 +33,7 @@ ___
 
 ▸ **validateClass**(`target`: any): *ValidationResult*
 
-*Defined in [index.ts:29](https://github.com/ivandotv/validar-decorators/blob/83cb7da/src/index.ts#L29)*
+*Defined in [index.ts:29](https://github.com/ivandotv/validar-decorators/blob/9870e72/src/index.ts#L29)*
 
 **Parameters:**
 
@@ -49,7 +49,7 @@ ___
 
 ▸ **validateClassAsync**(`target`: any): *Promise‹ValidationResult›*
 
-*Defined in [index.ts:34](https://github.com/ivandotv/validar-decorators/blob/83cb7da/src/index.ts#L34)*
+*Defined in [index.ts:34](https://github.com/ivandotv/validar-decorators/blob/9870e72/src/index.ts#L34)*
 
 **Parameters:**
 
