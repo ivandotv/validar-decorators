@@ -8,6 +8,12 @@ Decorators for the [validar package](https://github.com/ivandotv/validar).
 npm install validar-decorators
 ```
 
+![CircleCI](https://img.shields.io/circleci/build/github/ivandotv/validar-decorators/master)
+![Codecov](https://img.shields.io/codecov/c/github/ivandotv/validar-decorators)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/validar-decorators)
+![NPM](https://img.shields.io/npm/l/validar-decorators)
+![dependabot enabled](https://flat.badgen.net/dependabot/dependabot/dependabot-core/?icon=dependabot)
+
 As decorators are a part of future [ECMAScript standard](https://github.com/tc39/proposals) they can only be used with transpilers such as [Babel](http://babeljs.io/) or [Typescript](https://www.typescriptlang.org/).
 
 This package is written in typescript.
