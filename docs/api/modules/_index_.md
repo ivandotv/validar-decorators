@@ -17,15 +17,19 @@
 
 ▸ **isValid**(`validation`: Validation | Validation[] | any): *Function*
 
-*Defined in [index.ts:5](https://github.com/ivandotv/validar-decorators/blob/9870e72/src/index.ts#L5)*
+*Defined in [index.ts:11](https://github.com/ivandotv/validar-decorators/blob/a6a4210/src/index.ts#L11)*
+
+Function for setting up decorator for validating class properties.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`validation` | Validation &#124; Validation[] &#124; any |
+Name | Type | Description |
+------ | ------ | ------ |
+`validation` | Validation &#124; Validation[] &#124; any | validation to be used for validating class property |
 
 **Returns:** *Function*
+
+actual decorator
 
 ___
 
@@ -33,15 +37,20 @@ ___
 
 ▸ **validateClass**(`target`: any): *ValidationResult*
 
-*Defined in [index.ts:29](https://github.com/ivandotv/validar-decorators/blob/9870e72/src/index.ts#L29)*
+*Defined in [index.ts:29](https://github.com/ivandotv/validar-decorators/blob/a6a4210/src/index.ts#L29)*
+
+Pass class instance or class itself to the [ validar package `validate` function](https://ivandotv.github.io/validar/validate)
+to be validated.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`target` | any |
+Name | Type | Description |
+------ | ------ | ------ |
+`target` | any | class or instance of a class |
 
 **Returns:** *ValidationResult*
+
+- [ validation result](https://ivandotv.github.io/validar/validate/validation-result.html )
 
 ___
 
@@ -49,12 +58,17 @@ ___
 
 ▸ **validateClassAsync**(`target`: any): *Promise‹ValidationResult›*
 
-*Defined in [index.ts:34](https://github.com/ivandotv/validar-decorators/blob/9870e72/src/index.ts#L34)*
+*Defined in [index.ts:40](https://github.com/ivandotv/validar-decorators/blob/a6a4210/src/index.ts#L40)*
+
+Pass class instance or class itself to the [ validar package `validateAsync` function](https://ivandotv.github.io/validar/validate/validate-async.html)
+to be validated asynchronously.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`target` | any |
+Name | Type | Description |
+------ | ------ | ------ |
+`target` | any | class or instance of a class |
 
 **Returns:** *Promise‹ValidationResult›*
+
+- [ validation result](https://ivandotv.github.io/validar/validate/validation-result.html )
