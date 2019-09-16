@@ -1,110 +1,96 @@
-jest.mock('validar')
-import { isValid, validateClass, validateClassAsync } from '../src/index'
 import { Validation, validate, validateAsync } from 'validar'
+import { isValid, validateClass, validateClassAsync } from '../src/index'
+
+jest.mock('validar')
 
 const { validation } = jest.requireActual('validar')
 
 let validationFail: Validation
 let validationSuccess: Validation
 
+let Person, Racer
+
 beforeEach(() => {
+  Person = class {
+    name: string
+    lastName: string
+    static address: string
+    static city: string
+  }
+
+  Racer = class extends Person {}
+
   validationFail = validation({
-    test: () => {
-      return {
-        valid: false,
-      }
-    },
+    test: () => true,
   })
   validationSuccess = validation({
-    test: () => {
-      return {
-        valid: true,
-      }
-    },
+    test: () => true,
   })
 })
-
 describe('Validate synchronously', () => {
   test('instance properties', () => {
-    class Person {
-      @isValid(validationFail)
-      name: string
-
-      @isValid(validationFail)
-      lastName: string
-    }
-
+    isValid(validationFail)(Person.prototype, 'name')
+    isValid(validationSuccess)(Person.prototype, 'lastName')
     const person = new Person()
-
     const validators = {
       name: validationFail,
-      lastName: validationFail,
+      lastName: validationSuccess,
     }
+
     validateClass(person)
 
     expect(validate).toBeCalledWith(validators, person)
   })
+
   test('static properties', () => {
-    class Person {
-      @isValid(validationFail)
-      static firstName: string = 'Sam'
-
-      @isValid(validationFail)
-      static lastName: string = 'Fisher'
-    }
     const validators = {
-      firstName: validationFail,
-      lastName: validationFail,
+      address: validationFail,
+      city: validationFail,
     }
 
-    const result = validateClass(Person)
+    isValid(validationFail)(Person, 'address')
+    isValid(validationFail)(Person, 'city')
+
+    validateClass(Person)
 
     expect(validate).toBeCalledWith(validators, Person)
   })
 })
+
 describe('Validate asynchronously', () => {
-  test('instance properties', () => {
+  test('instance properties', async () => {
     const asyncTest = validation({
       test: () => {
         return Promise.resolve(true)
       },
     })
-    class Person {
-      @isValid(asyncTest)
-      name: string
-
-      @isValid(validationFail)
-      lastName: string
-    }
-    const person = new Person()
     const validators = {
       name: asyncTest,
       lastName: validationFail,
     }
+    isValid(asyncTest)(Person.prototype, 'name')
+    isValid(validationFail)(Person.prototype, 'lastName')
+    const person = new Person()
 
-    validateClassAsync(person)
+    await validateClassAsync(person)
 
     expect(validateAsync).toBeCalledWith(validators, person)
   })
-  test('static properties', () => {
+
+  test('static properties', async () => {
     const asyncTest = validation({
       test: () => {
         return Promise.resolve(true)
       },
     })
-    class Person {
-      @isValid(asyncTest)
-      static firstName: string = 'Sam'
-
-      @isValid(asyncTest)
-      static lastName: string = 'Fisher'
-    }
     const validators = {
-      firstName: asyncTest,
-      lastName: asyncTest,
+      address: asyncTest,
+      city: asyncTest,
     }
+    isValid(asyncTest)(Person, 'address')
+    isValid(asyncTest)(Person, 'city')
 
-    const result = validateClassAsync(Person)
+    await validateClassAsync(Person)
 
     expect(validateAsync).toBeCalledWith(validators, Person)
   })

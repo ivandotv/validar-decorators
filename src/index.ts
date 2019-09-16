@@ -15,7 +15,6 @@ export function isValid(validation: Validation | Validation[] | any): Function {
 }
 
 function initMetadata(target: any, metaKey: string): any {
-  // if (!(metaKey in target)) {
   // eslint-disable-next-line
   if (!target.hasOwnProperty(metaKey)) {
     Object.defineProperty(target, metaKey, {
