@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "Decorators for validar package",
   "main": "lib",
+  "types": "lib",
+  "files": [
+    "lib",
+    "src"
+  ],
   "scripts": {
     "prepublishOnly": "npm run compile && npm run test && npm run docs",
     "ci:test": "jest --runInBand --reporters=default --reporters=jest-junit --coverage --coverageDirectory=coverage",
