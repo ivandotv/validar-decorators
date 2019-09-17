@@ -17,7 +17,7 @@
 
 ▸ **isValid**(`validation`: Validation | Validation[] | any): *Function*
 
-*Defined in [index.ts:11](https://github.com/ivandotv/validar-decorators/blob/5926260/src/index.ts#L11)*
+*Defined in [index.ts:11](https://github.com/ivandotv/validar-decorators/blob/8e487ed/src/index.ts#L11)*
 
 Function for setting up decorator for validating class properties.
 
@@ -37,7 +37,7 @@ ___
 
 ▸ **validateClass**(`target`: any): *ValidationResult*
 
-*Defined in [index.ts:29](https://github.com/ivandotv/validar-decorators/blob/5926260/src/index.ts#L29)*
+*Defined in [index.ts:29](https://github.com/ivandotv/validar-decorators/blob/8e487ed/src/index.ts#L29)*
 
 Pass class instance or class itself to the [ validar package `validate` function](https://ivandotv.github.io/validar/validate)
 to be validated.
@@ -58,7 +58,7 @@ ___
 
 ▸ **validateClassAsync**(`target`: any): *Promise‹ValidationResult›*
 
-*Defined in [index.ts:40](https://github.com/ivandotv/validar-decorators/blob/5926260/src/index.ts#L40)*
+*Defined in [index.ts:40](https://github.com/ivandotv/validar-decorators/blob/8e487ed/src/index.ts#L40)*
 
 Pass class instance or class itself to the [ validar package `validateAsync` function](https://ivandotv.github.io/validar/validate/validate-async.html)
 to be validated asynchronously.
