@@ -26,7 +26,7 @@ export function isValid(validation: Validation | Validation[] | any): Function {
  * @param target  class or instance of a class
  * @returns - {@link https://ivandotv.github.io/validar/validate/validation-result.html | validation result}
  */
-export function validateClass(target): ValidationResult {
+export function validateClass(target: any): ValidationResult {
   const validators = getValidators(target, metaKey)
   return validate(validators, target)
 }
@@ -37,7 +37,7 @@ export function validateClass(target): ValidationResult {
  * @param target  class or instance of a class
  * @returns - {@link https://ivandotv.github.io/validar/validate/validation-result.html | validation result}
  */
-export function validateClassAsync(target): Promise<ValidationResult> {
+export function validateClassAsync(target: any): Promise<ValidationResult> {
   const validators = getValidators(target, metaKey)
   return validateAsync(validators, target)
 }
