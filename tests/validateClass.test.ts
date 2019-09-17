@@ -7,18 +7,16 @@ const { validation } = jest.requireActual('validar')
 
 let validationFail: Validation
 let validationSuccess: Validation
-
-let Person, Racer
+// @ts-ignore
+let Person: PersonClass
 
 beforeEach(() => {
-  Person = class {
-    name: string
-    lastName: string
+  Person = class PersonClass {
+    name: string = 'Sam'
+    lastName: string = 'Fisher'
     static address: string
     static city: string
   }
-
-  Racer = class extends Person {}
 
   validationFail = validation({
     test: () => true,

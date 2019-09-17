@@ -5,18 +5,18 @@ let validationFail: Validation
 let validationSuccess: Validation
 
 const metaKey: string = '__validar_metadata__'
-
-let Person, PersonSub
+// @ts-ignore
+let Person: PersonClass, PersonSub: PersonSubClass
 
 beforeEach(() => {
-  Person = class {
-    name: string
-    lastName: string
+  Person = class PersonClass {
+    name: string = 'Sam'
+    lastName: string = 'Fisher'
     static address: string
     static city: string
   }
 
-  PersonSub = class extends Person {}
+  PersonSub = class PersonSubClass extends Person {}
   validationFail = validation({
     test: () => true,
   })
