@@ -9,7 +9,8 @@
     "outDir": "./lib",
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "strict": true
   },
   "include": ["./src/**/*"]
 }
