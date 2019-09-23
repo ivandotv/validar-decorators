@@ -2,7 +2,6 @@
 
 # validar-decorators
 
-
 ## Index
 
 ### External modules
