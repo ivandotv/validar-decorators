@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "incremental": true,
-    "tsBuildInfoFile": "./.buildcache/.tsbuildinfo",
+    "tsBuildInfoFile": "./lib/tsconfig.tsbuildinfo",
     "declaration": true,
     "target": "es5",
     "module": "commonjs",
