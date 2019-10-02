@@ -25,137 +25,137 @@ beforeEach(() => {
   })
 })
 
-describe('isValid decorator', () => {
-  test('throw if multiple decorators on the same field', () => {
+describe('Decorator function', () => {
+  test('throw if there are multiple decorators on the same class field', () => {
     expect(() => {
       isValid(validationFail)(Person.prototype, 'name')
       isValid(validationFail)(Person.prototype, 'name')
     }).toThrow('one @isValid')
   })
-})
 
-describe('Create metadata', () => {
-  test('instance properties', () => {
-    isValid(validationFail)(Person.prototype, 'name')
-    isValid(validationSuccess)(Person.prototype, 'lastName')
+  describe('Metadata', () => {
+    test('create metadata for class properties', () => {
+      isValid(validationFail)(Person.prototype, 'name')
+      isValid(validationSuccess)(Person.prototype, 'lastName')
 
-    const person = new Person()
+      const person = new Person()
 
-    expect(person[metaKey].name).toEqual(validationFail)
-    expect(person[metaKey].lastName).toEqual(validationSuccess)
-  })
+      expect(person[metaKey].name).toEqual(validationFail)
+      expect(person[metaKey].lastName).toEqual(validationSuccess)
+    })
 
-  test('instance properties - array of validations', () => {
-    isValid([validationFail, validationFail])(Person.prototype, 'name')
+    test('add array of validations to the class property ', () => {
+      isValid([validationFail, validationFail])(Person.prototype, 'name')
 
-    const person = new Person()
+      const person = new Person()
 
-    expect(person[metaKey].name).toEqual([validationFail, validationFail])
-  })
+      expect(person[metaKey].name).toEqual([validationFail, validationFail])
+    })
 
-  test('class static properties', () => {
-    isValid(validationFail)(Person, 'name')
-    isValid(validationSuccess)(Person, 'lastName')
+    test('add metadata to class static properties', () => {
+      isValid(validationFail)(Person, 'name')
+      isValid(validationSuccess)(Person, 'lastName')
 
-    expect(Person[metaKey].name).toEqual(validationFail)
-    expect(Person[metaKey].lastName).toEqual(validationSuccess)
-  })
+      expect(Person[metaKey].name).toEqual(validationFail)
+      expect(Person[metaKey].lastName).toEqual(validationSuccess)
+    })
 
-  test('instance properties - deeply nested', () => {
-    const validatorsResult = {
-      name: {
+    test('add validation to class properties that are deeply nested', () => {
+      const validatorsResult = {
+        name: {
+          location: {
+            city: [validationSuccess, validationFail],
+            address: {
+              street: [validationSuccess, validationSuccess],
+            },
+          },
+        },
+        lastName: validationFail,
+      }
+
+      isValid({
         location: {
           city: [validationSuccess, validationFail],
           address: {
             street: [validationSuccess, validationSuccess],
           },
         },
-      },
-      lastName: validationFail,
-    }
+      })(Person.prototype, 'name')
 
-    isValid({
-      location: {
-        city: [validationSuccess, validationFail],
+      isValid(validationFail)(Person.prototype, 'lastName')
+
+      const person = new Person()
+      expect(person[metaKey]).toEqual(validatorsResult)
+    })
+
+    test('add validation to static properties that are deeply nested', () => {
+      const validatorsResult = {
         address: {
-          street: [validationSuccess, validationSuccess],
+          location: {
+            city: [validationSuccess, validationFail],
+            address: {
+              street: [validationSuccess, validationSuccess],
+            },
+          },
         },
-      },
-    })(Person.prototype, 'name')
+        city: validationFail,
+      }
 
-    isValid(validationFail)(Person.prototype, 'lastName')
-
-    const person = new Person()
-    expect(person[metaKey]).toEqual(validatorsResult)
-  })
-
-  test('static properties - deeply nested', () => {
-    const validatorsResult = {
-      address: {
+      isValid({
         location: {
           city: [validationSuccess, validationFail],
           address: {
             street: [validationSuccess, validationSuccess],
           },
         },
-      },
-      city: validationFail,
-    }
+      })(Person, 'address')
+      isValid(validationFail)(Person, 'city')
 
-    isValid({
-      location: {
-        city: [validationSuccess, validationFail],
-        address: {
-          street: [validationSuccess, validationSuccess],
-        },
-      },
-    })(Person, 'address')
-    isValid(validationFail)(Person, 'city')
-
-    expect(Person[metaKey]).toEqual(validatorsResult)
-  })
-})
-
-describe('Using inheritance', () => {
-  test('subclass inherits instance validations', () => {
-    isValid(validationFail)(Person.prototype, 'name')
-    isValid(validationFail)(Person.prototype, 'lastName')
-
-    const personSub = new PersonSub()
-
-    expect(personSub[metaKey].name).toEqual(validationFail)
-    expect(personSub[metaKey].lastName).toEqual(validationFail)
+      expect(Person[metaKey]).toEqual(validatorsResult)
+    })
   })
 
-  test('subclass inherits static validations', () => {
-    isValid(validationFail)(Person, 'address')
-    isValid(validationFail)(Person, 'city')
+  describe('Class inheritance', () => {
+    test('subclass inherits parent class validations', () => {
+      isValid(validationFail)(Person.prototype, 'name')
+      isValid(validationFail)(Person.prototype, 'lastName')
 
-    expect(PersonSub[metaKey].address).toEqual(validationFail)
-    expect(PersonSub[metaKey].city).toEqual(validationFail)
-  })
+      const personSub = new PersonSub()
 
-  test('override parent instance validations', () => {
-    isValid(validationFail)(Person.prototype, 'name')
-    isValid(validationFail)(Person.prototype, 'lastName')
+      expect(personSub[metaKey].name).toEqual(validationFail)
+      expect(personSub[metaKey].lastName).toEqual(validationFail)
+    })
 
-    isValid(validationSuccess)(PersonSub.prototype, 'name')
-    isValid(validationSuccess)(PersonSub.prototype, 'lastName')
+    test('subclass inherits parent class static validations', () => {
+      isValid(validationFail)(Person, 'address')
+      isValid(validationFail)(Person, 'city')
 
-    const personSub = new PersonSub()
+      expect(PersonSub[metaKey].address).toEqual(validationFail)
+      expect(PersonSub[metaKey].city).toEqual(validationFail)
+    })
 
-    expect(personSub[metaKey].name).toEqual(validationSuccess)
-    expect(personSub[metaKey].lastName).toEqual(validationSuccess)
-  })
+    test('override parent instance validations', () => {
+      isValid(validationFail)(Person.prototype, 'name')
+      isValid(validationFail)(Person.prototype, 'lastName')
 
-  test('override parent static validations', () => {
-    isValid(validationFail)(Person, 'address')
-    isValid(validationFail)(Person, 'city')
+      isValid(validationSuccess)(PersonSub.prototype, 'name')
+      isValid(validationSuccess)(PersonSub.prototype, 'lastName')
 
-    isValid(validationSuccess)(PersonSub, 'address')
-    isValid(validationSuccess)(PersonSub, 'city')
+      const personSub = new PersonSub()
 
-    expect(PersonSub[metaKey].address).toEqual(validationSuccess)
-    expect(PersonSub[metaKey].city).toEqual(validationSuccess)
+      expect(personSub[metaKey].name).toEqual(validationSuccess)
+      expect(personSub[metaKey].lastName).toEqual(validationSuccess)
+    })
+
+    test('override parent static validations', () => {
+      isValid(validationFail)(Person, 'address')
+      isValid(validationFail)(Person, 'city')
+
+      isValid(validationSuccess)(PersonSub, 'address')
+      isValid(validationSuccess)(PersonSub, 'city')
+
+      expect(PersonSub[metaKey].address).toEqual(validationSuccess)
+      expect(PersonSub[metaKey].city).toEqual(validationSuccess)
+    })
   })
 })

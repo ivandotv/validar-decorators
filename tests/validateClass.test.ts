@@ -25,8 +25,9 @@ beforeEach(() => {
     test: () => true,
   })
 })
+
 describe('Validate synchronously', () => {
-  test('instance properties', () => {
+  test('validate instance properties', () => {
     isValid(validationFail)(Person.prototype, 'name')
     isValid(validationSuccess)(Person.prototype, 'lastName')
     const person = new Person()
@@ -40,7 +41,7 @@ describe('Validate synchronously', () => {
     expect(validate).toBeCalledWith(validators, person)
   })
 
-  test('static properties', () => {
+  test('validate static properties', () => {
     const validators = {
       address: validationFail,
       city: validationFail,
@@ -56,7 +57,7 @@ describe('Validate synchronously', () => {
 })
 
 describe('Validate asynchronously', () => {
-  test('instance properties', async () => {
+  test('validate instance properties', async () => {
     const asyncTest = validation({
       test: () => {
         return Promise.resolve(true)
@@ -75,7 +76,7 @@ describe('Validate asynchronously', () => {
     expect(validateAsync).toBeCalledWith(validators, person)
   })
 
-  test('static properties', async () => {
+  test('validate static properties', async () => {
     const asyncTest = validation({
       test: () => {
         return Promise.resolve(true)
