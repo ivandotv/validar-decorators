@@ -22,6 +22,17 @@
     "build": "npm run clean && tsc",
     "build:watch": "npm run build && tsc --watch"
   },
+  "engines": {
+    "node:": ">=v8.16.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivandotv/validar-decorators.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ivandotv/validar-decorators/issues"
+  },
+  "homepage": "https://github.com/ivandotv/validar-decorators#readme",
   "jest": {
     "coverageThreshold": {
       "global": {
