@@ -7,3 +7,4 @@ node_modules
 /docs/_site
 /docs/Gemfile.lock
 docs/.jekyll-metadata
+.buildcache
