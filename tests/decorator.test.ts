@@ -17,6 +17,7 @@ beforeEach(() => {
   }
 
   PersonSub = class PersonSubClass extends Person {}
+
   validationFail = validation({
     test: () => true,
   })
@@ -40,8 +41,10 @@ describe('Decorator function', () => {
 
       const person = new Person()
 
-      expect(person[metaKey].name).toEqual(validationFail)
-      expect(person[metaKey].lastName).toEqual(validationSuccess)
+      expect(Reflect.getMetadata(metaKey, person).name).toEqual(validationFail)
+      expect(Reflect.getMetadata(metaKey, person).lastName).toEqual(
+        validationSuccess
+      )
     })
 
     test('add array of validations to the class property ', () => {
@@ -49,20 +52,25 @@ describe('Decorator function', () => {
 
       const person = new Person()
 
-      expect(person[metaKey].name).toEqual([validationFail, validationFail])
+      expect(Reflect.getMetadata(metaKey, person).name).toEqual([
+        validationFail,
+        validationFail,
+      ])
     })
 
     test('add metadata to class static properties', () => {
       isValid(validationFail)(Person, 'name')
       isValid(validationSuccess)(Person, 'lastName')
 
-      expect(Person[metaKey].name).toEqual(validationFail)
-      expect(Person[metaKey].lastName).toEqual(validationSuccess)
+      expect(Reflect.getMetadata(metaKey, Person).name).toEqual(validationFail)
+      expect(Reflect.getMetadata(metaKey, Person).lastName).toEqual(
+        validationSuccess
+      )
     })
 
     test('add validation to class properties that are deeply nested', () => {
       const validatorsResult = {
-        name: {
+        locationInfo: {
           location: {
             city: [validationSuccess, validationFail],
             address: {
@@ -70,7 +78,6 @@ describe('Decorator function', () => {
             },
           },
         },
-        lastName: validationFail,
       }
 
       isValid({
@@ -80,12 +87,10 @@ describe('Decorator function', () => {
             street: [validationSuccess, validationSuccess],
           },
         },
-      })(Person.prototype, 'name')
-
-      isValid(validationFail)(Person.prototype, 'lastName')
+      })(Person.prototype, 'locationInfo')
 
       const person = new Person()
-      expect(person[metaKey]).toEqual(validatorsResult)
+      expect(Reflect.getMetadata(metaKey, person)).toEqual(validatorsResult)
     })
 
     test('add validation to static properties that are deeply nested', () => {
@@ -111,7 +116,7 @@ describe('Decorator function', () => {
       })(Person, 'address')
       isValid(validationFail)(Person, 'city')
 
-      expect(Person[metaKey]).toEqual(validatorsResult)
+      expect(Reflect.getMetadata(metaKey, Person)).toEqual(validatorsResult)
     })
   })
 
@@ -122,16 +127,24 @@ describe('Decorator function', () => {
 
       const personSub = new PersonSub()
 
-      expect(personSub[metaKey].name).toEqual(validationFail)
-      expect(personSub[metaKey].lastName).toEqual(validationFail)
+      expect(Reflect.getMetadata(metaKey, personSub).name).toEqual(
+        validationFail
+      )
+      expect(Reflect.getMetadata(metaKey, personSub).lastName).toEqual(
+        validationFail
+      )
     })
 
     test('subclass inherits parent class static validations', () => {
       isValid(validationFail)(Person, 'address')
       isValid(validationFail)(Person, 'city')
 
-      expect(PersonSub[metaKey].address).toEqual(validationFail)
-      expect(PersonSub[metaKey].city).toEqual(validationFail)
+      expect(Reflect.getMetadata(metaKey, PersonSub).address).toEqual(
+        validationFail
+      )
+      expect(Reflect.getMetadata(metaKey, PersonSub).city).toEqual(
+        validationFail
+      )
     })
 
     test('override parent instance validations', () => {
@@ -141,10 +154,15 @@ describe('Decorator function', () => {
       isValid(validationSuccess)(PersonSub.prototype, 'name')
       isValid(validationSuccess)(PersonSub.prototype, 'lastName')
 
+      // eslint-disable-next-line
       const personSub = new PersonSub()
 
-      expect(personSub[metaKey].name).toEqual(validationSuccess)
-      expect(personSub[metaKey].lastName).toEqual(validationSuccess)
+      expect(Reflect.getMetadata(metaKey, personSub).name).toEqual(
+        validationSuccess
+      )
+      expect(Reflect.getMetadata(metaKey, personSub).lastName).toEqual(
+        validationSuccess
+      )
     })
 
     test('override parent static validations', () => {
@@ -154,8 +172,12 @@ describe('Decorator function', () => {
       isValid(validationSuccess)(PersonSub, 'address')
       isValid(validationSuccess)(PersonSub, 'city')
 
-      expect(PersonSub[metaKey].address).toEqual(validationSuccess)
-      expect(PersonSub[metaKey].city).toEqual(validationSuccess)
+      expect(Reflect.getMetadata(metaKey, PersonSub).address).toEqual(
+        validationSuccess
+      )
+      expect(Reflect.getMetadata(metaKey, PersonSub).city).toEqual(
+        validationSuccess
+      )
     })
   })
 })

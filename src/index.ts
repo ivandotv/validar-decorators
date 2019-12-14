@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { Validation, ValidationResult, validate, validateAsync } from 'validar'
 
 /** string to be used for storing metadata */
@@ -43,17 +44,14 @@ export function validateClassAsync(target: any): Promise<ValidationResult> {
 }
 
 function getValidators(target: any, metaKey: string): any {
-  return target[metaKey]
+  // return target[metaKey]
+  return Reflect.getMetadata(metaKey, target)
 }
 
 function initMetadata(target: any, metaKey: string): any {
   // eslint-disable-next-line
-  if (!target.hasOwnProperty(metaKey)) {
-    Object.defineProperty(target, metaKey, {
-      value: {},
-      writable: true,
-    })
+  if (typeof Reflect.getOwnMetadata(metaKey, target) === 'undefined') {
+    Reflect.defineMetadata(metaKey, {}, target)
   }
-
-  return target[metaKey]
+  return Reflect.getMetadata(metaKey, target)
 }
