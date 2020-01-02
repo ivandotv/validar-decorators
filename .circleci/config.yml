@@ -15,28 +15,10 @@ jobs:
   node-v12:
     docker:
       - image: circleci/node:12
-    working_directory: ~/repo
     steps:
       - test
       - store-artifacts
       - setup-coverage
-      - persist_to_workspace:
-          root: ~/repo
-          paths:
-            - ./*
-  publish:
-    docker:
-      - image: circleci/node:12
-    working_directory: ~/repo
-    steps:
-      - attach_workspace:
-          at: ~/repo
-      - run:
-          name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/repo/.npmrc
-      - run:
-          name: Publish package
-          command: npm publish
 commands:
   store-artifacts:
     steps:
@@ -72,11 +54,3 @@ workflows:
       - node-v8
       - node-v10
       - node-v12
-      - publish:
-          requires:
-            - node-v12
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
