@@ -1,10 +1,9 @@
 # Validar Decorators
 
-![CircleCI](https://img.shields.io/circleci/build/github/ivandotv/validar-decorators/master)
-![Codecov](https://img.shields.io/codecov/c/github/ivandotv/validar-decorators)
+[![CircleCI](https://img.shields.io/circleci/build/github/ivandotv/validar-decorators/master)](https://circleci.com/gh/ivandotv/validar-decorators)
+[![Codecov](https://img.shields.io/codecov/c/github/ivandotv/validar-decorators)](https://codecov.io/gh/ivandotv/validar-decorators)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/validar-decorators)
-![NPM](https://img.shields.io/npm/l/validar-decorators)
-![dependabot enabled](https://flat.badgen.net/dependabot/dependabot/dependabot-core/?icon=dependabot)
+[![NPM](https://img.shields.io/npm/l/validar-decorators)](https://www.npmjs.com/package/validar-decorators)
 
 Decorators for the [validar package](https://github.com/ivandotv/validar).
 
