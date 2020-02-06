@@ -79,10 +79,13 @@
   "author": "Ivan Vlatkovic",
   "license": "MIT",
   "dependencies": {
-    "reflect-metadata": "^0.1.13",
+    "reflect-metadata": "^0.1.13"
+  },
+  "peerDependencies": {
     "validar": "^1.0.6"
   },
   "devDependencies": {
+    "validar": "^1.0.6",
     "@types/jest": "^25.0.0",
     "@types/node": "^13.1.0",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
