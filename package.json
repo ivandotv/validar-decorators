@@ -82,7 +82,11 @@
     "reflect-metadata": "^0.1.13",
     "validar": "^1.0.6"
   },
+  "peerDependencies": {
+    "chai": "1.x"
+  },
   "devDependencies": {
+    "validar": "^1.0.6",
     "@types/jest": "^25.0.0",
     "@types/node": "^13.1.0",
     "@typescript-eslint/eslint-plugin": "^2.3.0",
