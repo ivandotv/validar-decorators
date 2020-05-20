@@ -49,7 +49,6 @@ function getValidators(target: any, metaKey: string): any {
 }
 
 function initMetadata(target: any, metaKey: string): any {
-  // eslint-disable-next-line
   if (typeof Reflect.getOwnMetadata(metaKey, target) === 'undefined') {
     Reflect.defineMetadata(metaKey, {}, target)
   }
