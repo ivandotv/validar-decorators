@@ -9,12 +9,12 @@ jobs:
       - test
   node-v12:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:12
     steps:
       - test
   node-v14:
     docker:
-      - image: circleci/node:12
+      - image: circleci/node:14
     steps:
       - test
       - store-artifacts
