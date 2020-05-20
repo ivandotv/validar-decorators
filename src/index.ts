@@ -9,12 +9,13 @@ const metaKey = '__validar_metadata__'
  * @param validation validation to be used for validating class property
  * @returns actual decorator
  */
+
 export function isValid(validation: Validation | Validation[] | any): Function {
-  return function(target: any, key: string) {
+  return function (target: any, key: string) {
     const metaData = initMetadata(target, metaKey)
 
     if (typeof metaData[key] !== 'undefined') {
-      throw new Error(`Only one @isValid decorator per field is allowed`)
+      throw new Error('Only one @isValid decorator per field is allowed')
     }
 
     metaData[key] = validation
@@ -29,6 +30,7 @@ export function isValid(validation: Validation | Validation[] | any): Function {
  */
 export function validateClass(target: any): ValidationResult {
   const validators = getValidators(target, metaKey)
+
   return validate(validators, target)
 }
 
@@ -40,6 +42,7 @@ export function validateClass(target: any): ValidationResult {
  */
 export function validateClassAsync(target: any): Promise<ValidationResult> {
   const validators = getValidators(target, metaKey)
+
   return validateAsync(validators, target)
 }
 
@@ -52,5 +55,6 @@ function initMetadata(target: any, metaKey: string): any {
   if (typeof Reflect.getOwnMetadata(metaKey, target) === 'undefined') {
     Reflect.defineMetadata(metaKey, {}, target)
   }
+
   return Reflect.getMetadata(metaKey, target)
 }
