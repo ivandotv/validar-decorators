@@ -104,7 +104,7 @@
     "move-file-cli": "^2.0.0",
     "prettier": "^2.0.5",
     "ts-jest": "^26.0.0",
-    "typedoc": "^0.17.7",
+    "typedoc": "^0.18.0",
     "typedoc-plugin-markdown": "^2.2.17",
     "typescript": "^3.9.3"
   }
