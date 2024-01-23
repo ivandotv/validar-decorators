@@ -77,7 +77,7 @@
   "author": "Ivan Vlatkovic",
   "license": "MIT",
   "dependencies": {
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.2.0"
   },
   "peerDependencies": {
     "validar": "^1.0.7"
